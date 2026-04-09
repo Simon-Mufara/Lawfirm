@@ -124,6 +124,7 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 16px 36px;
     border-radius: 6px;
     text-decoration: none;
@@ -156,6 +157,7 @@ h1, h2, h3, h4, h5, h6 {
     background: linear-gradient(135deg, var(--accent-gold), var(--accent-light));
     color: var(--primary-dark);
     box-shadow: none;
+    animation: ctaBreath 2.8s ease-in-out infinite;
 }
 
 .cta-button.primary:hover {
@@ -172,6 +174,17 @@ h1, h2, h3, h4, h5, h6 {
 .cta-button.secondary:hover {
     background: var(--accent-gold);
     color: var(--primary-dark);
+}
+
+@keyframes ctaBreath {
+    0%, 100% {
+        transform: translateY(0);
+        filter: brightness(1);
+    }
+    50% {
+        transform: translateY(-2px);
+        filter: brightness(1.05);
+    }
 }
 
 .cta-button.full-width {
@@ -413,32 +426,30 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-scroll {
-    position: absolute;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: static;
+    margin-top: 22px;
     text-align: center;
     z-index: 2;
-    animation: bounce 4s ease-in-out infinite;
+    animation: fadePulse 2.8s ease-in-out infinite;
 }
 
 .hero-scroll span {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     letter-spacing: 0.5px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
 }
 
-@keyframes bounce {
+@keyframes fadePulse {
     0%, 100% {
-        transform: translateX(-50%) translateY(0);
+        opacity: 0.75;
     }
     50% {
-        transform: translateX(-50%) translateY(15px);
+        opacity: 1;
     }
 }
 
@@ -1564,6 +1575,12 @@ h1, h2, h3, h4, h5, h6 {
 
     html {
         scroll-behavior: auto;
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .cta-button.primary:hover {
+        animation-play-state: paused;
     }
 }
 
