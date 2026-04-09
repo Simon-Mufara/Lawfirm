@@ -16,6 +16,8 @@ const formEndpoint = contactForm?.dataset?.formEndpoint || '';
 const isPlaceholderFormEndpoint = !/^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(formEndpoint);
 const allowedServices = new Set(['civil', 'bail', 'family', 'labour', 'protection', 'contracts', 'other']);
 const allowedUrgencies = new Set(['normal', 'urgent', 'critical']);
+const turnstileWidget = document.querySelector('.cf-turnstile');
+const hasTurnstileConfigured = Boolean(turnstileWidget && turnstileWidget.dataset.sitekey && !/REPLACE_WITH_TURNSTILE_SITE_KEY/i.test(turnstileWidget.dataset.sitekey));
 
 // Toggle mobile menu
 if (hamburger) {
@@ -130,7 +132,15 @@ if (contactForm) {
         if (honeypot) {
             return;
         }
+        const turnstileToken = String(formData.get('cf-turnstile-response') || '').trim();
+        if (hasTurnstileConfigured && !turnstileToken) {
+            showAlert('Please complete the security verification before submitting.');
+            return;
+        }
         const data = buildSafePayload(formData);
+        if (turnstileToken) {
+            data['cf-turnstile-response'] = turnstileToken;
+        }
 
         // Validate form
         if (!validateForm(data)) {
@@ -176,6 +186,9 @@ if (contactForm) {
                 contactForm.reset();
                 lastFormSubmissionAt = Date.now();
                 lastSubmissionFingerprint = payloadFingerprint;
+                if (window.turnstile && turnstileWidget) {
+                    window.turnstile.reset(turnstileWidget);
+                }
             } else {
                 showErrorMessage(contactForm);
             }
