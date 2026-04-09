@@ -11,8 +11,9 @@ const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const sections = document.querySelectorAll('section');
-const formEndpoint = 'https://formspree.io/f/xyzqwert';
-const isPlaceholderFormEndpoint = /xyzqwert/i.test(formEndpoint);
+const contactForm = document.getElementById('contactForm');
+const formEndpoint = contactForm?.dataset?.formEndpoint || '';
+const isPlaceholderFormEndpoint = !/^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(formEndpoint);
 
 // Toggle mobile menu
 if (hamburger) {
@@ -99,7 +100,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // CONTACT FORM HANDLING
 // ============================================
 
-const contactForm = document.getElementById('contactForm');
 const formLoadTimestamp = Date.now();
 let lastFormSubmissionAt = 0;
 const formThrottleMs = 15000;
