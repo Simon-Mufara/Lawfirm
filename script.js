@@ -14,6 +14,8 @@ const sections = document.querySelectorAll('section');
 const contactForm = document.getElementById('contactForm');
 const formEndpoint = contactForm?.dataset?.formEndpoint || '';
 const isPlaceholderFormEndpoint = !/^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(formEndpoint);
+const allowedServices = new Set(['civil', 'bail', 'family', 'labour', 'protection', 'contracts', 'other']);
+const allowedUrgencies = new Set(['normal', 'urgent', 'critical']);
 
 // Toggle mobile menu
 if (hamburger) {
@@ -104,6 +106,8 @@ const formLoadTimestamp = Date.now();
 let lastFormSubmissionAt = 0;
 const formThrottleMs = 15000;
 const minHumanFillMs = 2500;
+const requestTimeoutMs = 10000;
+let lastSubmissionFingerprint = '';
 
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
@@ -126,17 +130,16 @@ if (contactForm) {
         if (honeypot) {
             return;
         }
-        const data = {
-            fullname: formData.get('fullname'),
-            email: formData.get('email'),
-            phone: formData.get('phone'),
-            service: formData.get('service'),
-            message: formData.get('message'),
-            urgency: formData.get('urgency')
-        };
+        const data = buildSafePayload(formData);
 
         // Validate form
         if (!validateForm(data)) {
+            return;
+        }
+
+        const payloadFingerprint = `${data.email}|${data.phone}|${data.service}|${data.message.toLowerCase()}`;
+        if (payloadFingerprint === lastSubmissionFingerprint && now - lastFormSubmissionAt < 5 * 60 * 1000) {
+            showAlert('Duplicate inquiry detected. Please wait a moment before sending the same message again.');
             return;
         }
 
@@ -151,19 +154,28 @@ if (contactForm) {
                 throw new Error('FORM_ENDPOINT_NOT_CONFIGURED');
             }
 
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), requestTimeoutMs);
             const response = await fetch(formEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
+                mode: 'cors',
+                cache: 'no-store',
+                redirect: 'error',
+                referrerPolicy: 'no-referrer',
+                signal: controller.signal
             });
+            clearTimeout(timeoutId);
 
             if (response.ok) {
                 showSuccessMessage(contactForm);
                 contactForm.reset();
                 lastFormSubmissionAt = Date.now();
+                lastSubmissionFingerprint = payloadFingerprint;
             } else {
                 showErrorMessage(contactForm);
             }
@@ -187,7 +199,7 @@ function validateForm(data) {
     const normalizedMessage = String(data.message || '').trim();
 
     // Basic validation
-    if (normalizedName.length < 2 || normalizedName.length > 80) {
+    if (normalizedName.length < 2 || normalizedName.length > 80 || !/^[A-Za-zÀ-ÿ'’\-. ]+$/.test(normalizedName)) {
         showAlert('Please enter a valid name');
         return false;
     }
@@ -202,8 +214,13 @@ function validateForm(data) {
         return false;
     }
 
-    if (!data.service) {
+    if (!data.service || !allowedServices.has(data.service)) {
         showAlert('Please select a service');
+        return false;
+    }
+
+    if (data.urgency && !allowedUrgencies.has(data.urgency)) {
+        showAlert('Please select a valid urgency level');
         return false;
     }
 
@@ -220,6 +237,21 @@ function validateForm(data) {
     return true;
 }
 
+function normalizeWhitespace(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim();
+}
+
+function buildSafePayload(formData) {
+    return {
+        fullname: normalizeWhitespace(formData.get('fullname')).slice(0, 80),
+        email: normalizeWhitespace(formData.get('email')).slice(0, 120).toLowerCase(),
+        phone: normalizeWhitespace(formData.get('phone')).slice(0, 25),
+        service: normalizeWhitespace(formData.get('service')),
+        message: normalizeWhitespace(formData.get('message')).slice(0, 1500),
+        urgency: normalizeWhitespace(formData.get('urgency') || 'normal')
+    };
+}
+
 // Email validation
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -230,7 +262,7 @@ function isValidEmail(email) {
 function showSuccessMessage(form) {
     const message = document.createElement('div');
     message.className = 'success-message';
-    message.innerHTML = '✓ Message sent successfully! We\'ll contact you within 24 hours.';
+    message.textContent = '✓ Message sent successfully! We\'ll contact you within 24 hours.';
     form.parentElement.insertBefore(message, form);
 
     setTimeout(() => {
@@ -242,7 +274,7 @@ function showSuccessMessage(form) {
 function showErrorMessage(form, text) {
     const message = document.createElement('div');
     message.className = 'error-message';
-    message.innerHTML = text || '✗ Oops! Something went wrong. Please try again or call us directly.';
+    message.textContent = text || '✗ Oops! Something went wrong. Please try again or call us directly.';
     form.parentElement.insertBefore(message, form);
 
     setTimeout(() => {
