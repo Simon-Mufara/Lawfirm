@@ -1885,3 +1885,126 @@ h1, h2, h3, h4, h5, h6 {
         color: black;
     }
 }
+
+/* ============================================
+   MOBILE OVERRIDE LAYER (FINAL)
+   ============================================ */
+
+@media (max-width: 768px) {
+    .navbar {
+        background: rgba(10, 10, 10, 0.96);
+    }
+
+    .nav-container {
+        height: 68px;
+    }
+
+    .nav-menu {
+        top: 68px;
+        max-height: calc(100vh - 68px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 24px;
+    }
+
+    .nav-menu .nav-quick-actions {
+        width: 100%;
+    }
+
+    .nav-menu .nav-quick-actions a {
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 20px 0 36px;
+    }
+
+    .hero-content {
+        padding: 24px 16px 18px;
+    }
+
+    .hero-scroll {
+        display: none;
+    }
+
+    .hero-buttons {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .hero-buttons .cta-button {
+        width: 100%;
+        max-width: 100%;
+        min-height: 48px;
+    }
+
+    .services-grid,
+    .scenarios-grid,
+    .why-grid,
+    .testimonials-container,
+    .about-stats,
+    .footer-content {
+        gap: 16px;
+    }
+
+    .service-card,
+    .scenario-card,
+    .why-item,
+    .testimonial-item,
+    .contact-form,
+    .quick-contact-card,
+    .map-info {
+        border-radius: 12px;
+    }
+
+    .map-container {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 14px;
+    }
+
+    .logo-text {
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+
+    .hero-title {
+        font-size: clamp(1.8rem, 9vw, 2.2rem);
+        line-height: 1.15;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 22px;
+    }
+
+    .section-title {
+        font-size: clamp(1.45rem, 7vw, 1.8rem);
+    }
+
+    .cta-button {
+        font-size: 0.95rem;
+        padding: 13px 16px;
+    }
+
+    .service-card,
+    .scenario-card,
+    .why-item,
+    .testimonial-item,
+    .quick-contact-card,
+    .info-box,
+    .contact-form {
+        padding: 18px 16px;
+    }
+
+    .map-container {
+        height: 260px;
+    }
+}
