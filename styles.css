@@ -2179,6 +2179,20 @@ body {
     background: var(--secondary-dark);
 }
 
+.hero-overlay,
+.hero-animated-bg {
+    display: none;
+}
+
+.hero-doodle-layer {
+    opacity: 0.35;
+    z-index: 1;
+}
+
+.hero-content {
+    z-index: 2;
+}
+
 .case-scenarios,
 .why-choose-us,
 .location-map,
