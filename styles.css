@@ -1191,6 +1191,14 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 0 14px rgba(216, 180, 90, 0.2);
 }
 
+.honeypot-field {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+}
+
 .form-note {
     font-size: 0.85rem;
     color: var(--text-secondary);

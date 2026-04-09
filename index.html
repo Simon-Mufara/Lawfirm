@@ -443,20 +443,20 @@
 
             <div class="contact-wrapper">
                 <div class="contact-form-section">
-                    <form class="contact-form" id="contactForm" method="POST">
+                    <form class="contact-form" id="contactForm" method="POST" novalidate>
                         <div class="form-group">
                             <label for="fullname">Full Name *</label>
-                            <input type="text" id="fullname" name="fullname" placeholder="Your full name" required>
+                            <input type="text" id="fullname" name="fullname" placeholder="Your full name" autocomplete="name" minlength="2" maxlength="80" required>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                            <input type="email" id="email" name="email" placeholder="your.email@example.com" autocomplete="email" maxlength="120" required>
                         </div>
 
                         <div class="form-group">
                             <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" placeholder="+27 (0) 11 123 4567" required>
+                            <input type="tel" id="phone" name="phone" placeholder="+27 (0) 11 123 4567" autocomplete="tel" maxlength="25" required>
                         </div>
 
                         <div class="form-group">
@@ -475,7 +475,7 @@
 
                         <div class="form-group">
                             <label for="message">Brief Description of Your Matter *</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Tell us about your legal situation..." required></textarea>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell us about your legal situation..." minlength="10" maxlength="1500" required></textarea>
                         </div>
 
                         <div class="form-group">
@@ -487,8 +487,13 @@
                             </select>
                         </div>
 
+                        <div class="honeypot-field" aria-hidden="true">
+                            <label for="website">Website</label>
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+
                         <button type="submit" class="cta-button primary full-width">Send Inquiry</button>
-                        <p class="form-note">We respond within 24 hours during business hours. For emergencies, call immediately.</p>
+                        <p class="form-note">We respond within 24 hours during business hours. For emergencies, call immediately. Please do not include ID numbers, card details, or passwords.</p>
                     </form>
                 </div>
 

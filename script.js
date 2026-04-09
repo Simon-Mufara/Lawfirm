@@ -100,19 +100,39 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ============================================
 
 const contactForm = document.getElementById('contactForm');
+const formLoadTimestamp = Date.now();
+let lastFormSubmissionAt = 0;
+const formThrottleMs = 15000;
+const minHumanFillMs = 2500;
 
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const now = Date.now();
+        if (now - formLoadTimestamp < minHumanFillMs) {
+            showAlert('Please take a moment to complete the form before submitting.');
+            return;
+        }
+
+        if (now - lastFormSubmissionAt < formThrottleMs) {
+            showAlert('Please wait a few seconds before sending another inquiry.');
+            return;
+        }
+
         // Get form data
         const formData = new FormData(contactForm);
+        const honeypot = String(formData.get('website') || '').trim();
+        if (honeypot) {
+            return;
+        }
         const data = {
             fullname: formData.get('fullname'),
             email: formData.get('email'),
             phone: formData.get('phone'),
             service: formData.get('service'),
-            message: formData.get('message')
+            message: formData.get('message'),
+            urgency: formData.get('urgency')
         };
 
         // Validate form
@@ -134,7 +154,8 @@ if (contactForm) {
             const response = await fetch(formEndpoint, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(data)
             });
@@ -142,6 +163,7 @@ if (contactForm) {
             if (response.ok) {
                 showSuccessMessage(contactForm);
                 contactForm.reset();
+                lastFormSubmissionAt = Date.now();
             } else {
                 showErrorMessage(contactForm);
             }
@@ -159,18 +181,23 @@ if (contactForm) {
 
 // Form validation
 function validateForm(data) {
+    const normalizedName = String(data.fullname || '').trim();
+    const normalizedEmail = String(data.email || '').trim();
+    const normalizedPhone = String(data.phone || '').trim();
+    const normalizedMessage = String(data.message || '').trim();
+
     // Basic validation
-    if (!data.fullname || data.fullname.trim().length < 2) {
+    if (normalizedName.length < 2 || normalizedName.length > 80) {
         showAlert('Please enter a valid name');
         return false;
     }
 
-    if (!data.email || !isValidEmail(data.email)) {
+    if (!isValidEmail(normalizedEmail)) {
         showAlert('Please enter a valid email address');
         return false;
     }
 
-    if (!data.phone || data.phone.trim().length < 7) {
+    if (!/^[+\d()\-\s]{7,25}$/.test(normalizedPhone)) {
         showAlert('Please enter a valid phone number');
         return false;
     }
@@ -180,8 +207,13 @@ function validateForm(data) {
         return false;
     }
 
-    if (!data.message || data.message.trim().length < 10) {
+    if (normalizedMessage.length < 10 || normalizedMessage.length > 1500) {
         showAlert('Please write a message with at least 10 characters');
+        return false;
+    }
+
+    if (/(<script|javascript:|<iframe|onerror=|onload=)/i.test(normalizedMessage)) {
+        showAlert('Please remove unsupported formatting from your message and try again.');
         return false;
     }
 
