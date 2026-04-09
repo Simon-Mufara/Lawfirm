@@ -424,7 +424,6 @@ function trackEvent(eventName, eventData) {
     if (window.gtag) {
         gtag('event', eventName, eventData);
     }
-    console.log(`Event: ${eventName}`, eventData);
 }
 
 // Track CTA clicks
@@ -492,7 +491,6 @@ function setupAccessibility() {
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Premium Law Firm Website loaded');
     setupAccessibility();
 
     // Log page load time
@@ -500,7 +498,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.performance) {
             const perfData = window.performance.timing;
             const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-            console.log('Page load time: ' + pageLoadTime + 'ms');
+            if (window.gtag && pageLoadTime > 0) {
+                gtag('event', 'timing_complete', {
+                    name: 'page_load',
+                    value: pageLoadTime
+                });
+            }
         }
     });
 });

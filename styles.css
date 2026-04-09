@@ -59,6 +59,24 @@ body {
     padding: 0 20px;
 }
 
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: #ffffff;
+    color: #111317;
+    padding: 10px 14px;
+    border-radius: 4px;
+    z-index: 2000;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.skip-link:focus {
+    left: 16px;
+    top: 16px;
+}
+
 /* ============================================
    TYPOGRAPHY
    ============================================ */
