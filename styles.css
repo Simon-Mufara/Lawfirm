@@ -2143,14 +2143,14 @@ h1, h2, h3, h4, h5, h6 {
 .contact-form,
 .quick-contact-card,
 .map-info {
-    background: rgba(26, 31, 46, 0.55);
+    background: rgba(16, 16, 16, 0.86);
     border: 1px solid var(--border-color);
     box-shadow: none;
 }
 
 .why-item,
 .info-box {
-    background: rgba(26, 31, 46, 0.5);
+    background: rgba(15, 15, 15, 0.86);
     border-left: 2px solid var(--accent-gold);
     box-shadow: none;
 }
@@ -2163,7 +2163,7 @@ h1, h2, h3, h4, h5, h6 {
 .info-box:hover {
     transform: translateY(-4px);
     box-shadow: none;
-    background: rgba(26, 31, 46, 0.65);
+    background: rgba(24, 24, 24, 0.92);
     border-color: rgba(216, 180, 90, 0.45);
 }
 
@@ -2176,7 +2176,7 @@ body {
 }
 
 .hero {
-    background: var(--secondary-dark);
+    background: #101010;
 }
 
 .hero-overlay,
@@ -2198,7 +2198,7 @@ body {
 .location-map,
 .cta-banner,
 .footer {
-    background: rgba(26, 31, 46, 0.55);
+    background: #121212;
 }
 
 .cta-banner {
