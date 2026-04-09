@@ -2092,3 +2092,69 @@ h1, h2, h3, h4, h5, h6 {
         height: 260px;
     }
 }
+
+/* ============================================
+   MINIMAL BRAND OVERRIDE
+   ============================================ */
+
+.hero-overlay,
+.hero-animated-bg {
+    display: none;
+}
+
+.hero-logo {
+    box-shadow: none;
+}
+
+.cta-button {
+    border-radius: 4px;
+}
+
+.cta-button.primary {
+    animation: none;
+}
+
+.hero-scroll {
+    animation: none;
+    opacity: 0.9;
+}
+
+.service-card,
+.scenario-card,
+.testimonial-item,
+.contact-form,
+.quick-contact-card,
+.map-info {
+    background: rgba(26, 31, 46, 0.55);
+    border: 1px solid var(--border-color);
+    box-shadow: none;
+}
+
+.why-item,
+.info-box {
+    background: rgba(26, 31, 46, 0.5);
+    border-left: 2px solid var(--accent-gold);
+    box-shadow: none;
+}
+
+.service-card::before,
+.scenario-card::before,
+.testimonial-item::before {
+    display: none;
+}
+
+.service-card:hover,
+.scenario-card:hover,
+.why-item:hover,
+.testimonial-item:hover,
+.quick-contact-card:hover,
+.info-box:hover {
+    transform: none;
+    box-shadow: none;
+    background: rgba(26, 31, 46, 0.65);
+    border-color: rgba(216, 180, 90, 0.45);
+}
+
+.section-title::after {
+    height: 2px;
+}
