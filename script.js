@@ -195,7 +195,7 @@ if (contactForm) {
 
         } catch (error) {
             console.error('Form submission error:', error);
-            const setupMessage = 'Form temporarily unavailable. Please call or WhatsApp us directly while we finalize online submissions.';
+            const setupMessage = 'Form temporarily unavailable. Please call or email us directly while we finalize online submissions.';
             showErrorMessage(contactForm, isPlaceholderFormEndpoint ? setupMessage : undefined);
         } finally {
             submitBtn.textContent = originalText;

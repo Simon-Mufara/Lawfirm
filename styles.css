@@ -723,6 +723,11 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: auto;
 }
 
+.card-icon i {
+    color: var(--accent-gold);
+    filter: drop-shadow(0 2px 6px rgba(200, 161, 77, 0.2));
+}
+
 .card-icon svg {
     width: 100%;
     height: 100%;
@@ -731,6 +736,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .service-card:hover .card-icon svg {
+    color: var(--accent-light);
+    filter: drop-shadow(0 4px 12px rgba(200, 161, 77, 0.35));
+}
+
+.service-card:hover .card-icon i {
     color: var(--accent-light);
     filter: drop-shadow(0 4px 12px rgba(200, 161, 77, 0.35));
 }
@@ -830,6 +840,10 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 12px;
     background: rgba(200, 161, 77, 0.08);
     animation: iconFloat 4s ease-in-out infinite;
+}
+
+.scenario-icon i {
+    font-size: 2rem;
 }
 
 .scenario-icon-svg {
@@ -1034,6 +1048,63 @@ h1, h2, h3, h4, h5, h6 {
     padding: 100px 0;
     background: linear-gradient(135deg, rgba(37, 45, 61, 0.4), rgba(26, 31, 46, 0.4));
     border-top: 1px solid var(--border-color);
+}
+
+/* ============================================
+   TEAM SECTION
+   ============================================ */
+
+.team-section {
+    padding: 90px 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.team-card {
+    background: rgba(16, 16, 16, 0.86);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    transition: var(--transition-fast);
+}
+
+.team-card:hover {
+    border-color: rgba(216, 180, 90, 0.45);
+    transform: translateY(-4px);
+}
+
+.team-image {
+    width: 132px;
+    height: 132px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(216, 180, 90, 0.45);
+    margin: 0 auto 14px;
+    display: block;
+}
+
+.team-card h3 {
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+}
+
+.team-position {
+    color: var(--accent-gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.team-qualification {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.6;
 }
 
 .about-grid {
@@ -1272,7 +1343,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .contact-phone,
-.contact-whatsapp,
 .contact-booking {
     display: block;
     text-align: center;
@@ -1309,7 +1379,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .contact-phone:hover,
-.contact-whatsapp:hover,
 .contact-booking:hover {
     transform: translateY(-1px);
     box-shadow: none;
@@ -2230,7 +2299,6 @@ body {
 
 .cta-button.primary,
 .contact-phone,
-.contact-whatsapp,
 .contact-booking,
 .scroll-to-top {
     background: var(--accent-gold);
@@ -2238,7 +2306,6 @@ body {
 
 .cta-button.primary:hover,
 .contact-phone:hover,
-.contact-whatsapp:hover,
 .contact-booking:hover {
     background: var(--accent-light);
 }
