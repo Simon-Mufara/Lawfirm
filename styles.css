@@ -2138,3 +2138,34 @@ h1, h2, h3, h4, h5, h6 {
 .section-title::after {
     height: 2px;
 }
+
+body {
+    background: var(--primary-dark);
+}
+
+.hero {
+    background: var(--secondary-dark);
+}
+
+.case-scenarios,
+.why-choose-us,
+.location-map,
+.cta-banner,
+.footer {
+    background: rgba(26, 31, 46, 0.55);
+}
+
+.cta-button.primary,
+.contact-phone,
+.contact-whatsapp,
+.contact-booking,
+.scroll-to-top {
+    background: var(--accent-gold);
+}
+
+.cta-button.primary:hover,
+.contact-phone:hover,
+.contact-whatsapp:hover,
+.contact-booking:hover {
+    background: var(--accent-light);
+}
