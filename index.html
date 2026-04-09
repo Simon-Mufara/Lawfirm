@@ -387,7 +387,7 @@
                 <p class="section-lead">Real results for real clients</p>
             </div>
 
-            <div class="testimonials-container">
+            <div class="testimonials-container" id="testimonialList">
                 <div class="testimonial-item">
                     <div class="testimonial-stars">★★★★★</div>
                     <p class="testimonial-text">"Facing a complex commercial dispute, I didn't know where to turn. Rhulani Baloyi's team didn't just fight for me—they explained every step clearly. The result exceeded my expectations."</p>
@@ -414,6 +414,53 @@
                         <span>Labour Law</span>
                     </div>
                 </div>
+            </div>
+
+            <div class="testimonial-feedback-wrap">
+                <h3 class="section-title-small">Share Your Feedback</h3>
+                <p class="section-lead">If we represented you, you can submit a testimonial for review and publication.</p>
+                <form id="testimonialForm" class="testimonial-form" method="POST" data-feedback-endpoint="REPLACE_WITH_TESTIMONIAL_ENDPOINT" novalidate>
+                    <div class="form-group">
+                        <label for="clientName">Your Name *</label>
+                        <input type="text" id="clientName" name="clientName" placeholder="Your full name" autocomplete="name" minlength="2" maxlength="80" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientService">Service Area *</label>
+                        <select id="clientService" name="clientService" required>
+                            <option value="">-- Select service area --</option>
+                            <option value="Civil Litigation">Civil Litigation</option>
+                            <option value="Bail Applications">Bail Applications</option>
+                            <option value="Family Law">Family Law</option>
+                            <option value="Labour Law">Labour Law</option>
+                            <option value="Protection Orders">Protection Orders</option>
+                            <option value="Contract Drafting">Contract Drafting</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientRating">Rating *</label>
+                        <select id="clientRating" name="clientRating" required>
+                            <option value="">-- Select rating --</option>
+                            <option value="5">★★★★★ (Excellent)</option>
+                            <option value="4">★★★★☆ (Very Good)</option>
+                            <option value="3">★★★☆☆ (Good)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientFeedback">Your Feedback *</label>
+                        <textarea id="clientFeedback" name="clientFeedback" rows="4" placeholder="Tell us about your experience..." minlength="20" maxlength="600" required></textarea>
+                    </div>
+
+                    <div class="honeypot-field" aria-hidden="true">
+                        <label for="companyWebsite">Website</label>
+                        <input type="text" id="companyWebsite" name="companyWebsite" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <button type="submit" class="cta-button primary">Submit Feedback</button>
+                    <p class="form-note">Approved feedback is displayed on this page after submission.</p>
+                </form>
             </div>
         </div>
     </section>

@@ -14,6 +14,10 @@ const sections = document.querySelectorAll('section');
 const contactForm = document.getElementById('contactForm');
 const formEndpoint = contactForm?.dataset?.formEndpoint || '';
 const isPlaceholderFormEndpoint = !/^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(formEndpoint);
+const testimonialForm = document.getElementById('testimonialForm');
+const testimonialEndpoint = testimonialForm?.dataset?.feedbackEndpoint || '';
+const isPlaceholderTestimonialEndpoint = !/^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(testimonialEndpoint);
+const testimonialList = document.getElementById('testimonialList');
 const allowedServices = new Set(['civil', 'bail', 'family', 'labour', 'protection', 'contracts', 'other']);
 const allowedUrgencies = new Set(['normal', 'urgent', 'critical']);
 const turnstileWidget = document.querySelector('.cf-turnstile');
@@ -204,6 +208,67 @@ if (contactForm) {
     });
 }
 
+if (testimonialForm) {
+    testimonialForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(testimonialForm);
+        const honeypot = String(formData.get('companyWebsite') || '').trim();
+        if (honeypot) {
+            return;
+        }
+
+        const payload = {
+            clientName: normalizeWhitespace(formData.get('clientName')).slice(0, 80),
+            clientService: normalizeWhitespace(formData.get('clientService')),
+            clientRating: Number(formData.get('clientRating')),
+            clientFeedback: normalizeWhitespace(formData.get('clientFeedback')).slice(0, 600)
+        };
+
+        if (!validateTestimonial(payload)) {
+            return;
+        }
+
+        const submitBtn = testimonialForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Submitting...';
+        submitBtn.disabled = true;
+
+        try {
+            if (isPlaceholderTestimonialEndpoint) {
+                throw new Error('TESTIMONIAL_ENDPOINT_NOT_CONFIGURED');
+            }
+
+            const response = await fetch(testimonialEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(payload),
+                mode: 'cors',
+                cache: 'no-store',
+                redirect: 'error',
+                referrerPolicy: 'no-referrer'
+            });
+
+            if (!response.ok) {
+                throw new Error('TESTIMONIAL_SUBMIT_FAILED');
+            }
+
+            appendTestimonial(payload);
+            showSuccessMessage(testimonialForm, '✓ Feedback received and added to testimonials. Thank you.');
+            testimonialForm.reset();
+        } catch (error) {
+            const setupMessage = 'Feedback form is not configured yet. Please set the testimonial endpoint to enable email delivery.';
+            showErrorMessage(testimonialForm, isPlaceholderTestimonialEndpoint ? setupMessage : undefined);
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
 // Form validation
 function validateForm(data) {
     const normalizedName = String(data.fullname || '').trim();
@@ -265,6 +330,59 @@ function buildSafePayload(formData) {
     };
 }
 
+function validateTestimonial(payload) {
+    if (payload.clientName.length < 2) {
+        showAlert('Please enter your name for feedback.');
+        return false;
+    }
+
+    if (!payload.clientService) {
+        showAlert('Please select a service area.');
+        return false;
+    }
+
+    if (![3, 4, 5].includes(payload.clientRating)) {
+        showAlert('Please choose a valid rating.');
+        return false;
+    }
+
+    if (payload.clientFeedback.length < 20) {
+        showAlert('Please provide at least 20 characters in your feedback.');
+        return false;
+    }
+
+    return true;
+}
+
+function appendTestimonial(payload) {
+    if (!testimonialList) {
+        return;
+    }
+
+    const stars = '★★★★★'.slice(0, payload.clientRating).padEnd(5, '☆');
+    const card = document.createElement('div');
+    card.className = 'testimonial-item';
+    card.innerHTML = `
+        <div class="testimonial-stars">${stars}</div>
+        <p class="testimonial-text">"${escapeHtml(payload.clientFeedback)}"</p>
+        <div class="testimonial-author">
+            <strong>${escapeHtml(payload.clientName)}</strong>
+            <span>${escapeHtml(payload.clientService)}</span>
+        </div>
+    `;
+
+    testimonialList.prepend(card);
+}
+
+function escapeHtml(value) {
+    return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 // Email validation
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -272,10 +390,10 @@ function isValidEmail(email) {
 }
 
 // Show success message
-function showSuccessMessage(form) {
+function showSuccessMessage(form, text) {
     const message = document.createElement('div');
     message.className = 'success-message';
-    message.textContent = '✓ Message sent successfully! We\'ll contact you within 24 hours.';
+    message.textContent = text || '✓ Message sent successfully! We\'ll contact you within 24 hours.';
     form.parentElement.insertBefore(message, form);
 
     setTimeout(() => {
