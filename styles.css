@@ -2201,6 +2201,33 @@ body {
     background: rgba(26, 31, 46, 0.55);
 }
 
+.cta-banner {
+    color: var(--text-primary);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cta-banner::before {
+    display: none;
+}
+
+.cta-banner p {
+    color: var(--text-secondary);
+    opacity: 1;
+}
+
+.cta-banner .cta-button {
+    background: var(--accent-gold);
+    color: #111317;
+    border-color: var(--accent-gold);
+}
+
+.cta-banner .cta-button:hover {
+    background: var(--accent-light);
+    color: #111317;
+    border-color: var(--accent-light);
+}
+
 .cta-button.primary,
 .contact-phone,
 .contact-whatsapp,
