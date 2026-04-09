@@ -1891,6 +1891,12 @@ h1, h2, h3, h4, h5, h6 {
    ============================================ */
 
 @media (max-width: 768px) {
+    :root {
+        --mobile-gap: 16px;
+        --mobile-card-padding: 20px;
+        --mobile-radius: 12px;
+    }
+
     .navbar {
         background: rgba(10, 10, 10, 0.96);
     }
@@ -1941,23 +1947,60 @@ h1, h2, h3, h4, h5, h6 {
         min-height: 48px;
     }
 
+    .section-title {
+        margin-bottom: 12px;
+    }
+
+    .section-lead {
+        margin-bottom: 24px;
+    }
+
+    .services-overview,
+    .case-scenarios,
+    .why-choose-us,
+    .testimonials,
+    .about-section,
+    .contact-section,
+    .location-map {
+        padding: 48px 0;
+    }
+
     .services-grid,
     .scenarios-grid,
     .why-grid,
     .testimonials-container,
     .about-stats,
     .footer-content {
-        gap: 16px;
+        gap: var(--mobile-gap);
     }
 
     .service-card,
     .scenario-card,
     .why-item,
     .testimonial-item,
+    .business-profile-card,
+    .info-box,
     .contact-form,
+    .quick-consultation,
     .quick-contact-card,
     .map-info {
-        border-radius: 12px;
+        border-radius: var(--mobile-radius);
+        padding: var(--mobile-card-padding);
+    }
+
+    .service-card h3,
+    .scenario-card h3 {
+        font-size: 1.15rem;
+    }
+
+    .service-card p,
+    .scenario-card p,
+    .why-item p,
+    .testimonial-item p,
+    .info-box p,
+    .quick-contact-card p {
+        font-size: 0.95rem;
+        line-height: 1.55;
     }
 
     .map-container {
@@ -1989,6 +2032,10 @@ h1, h2, h3, h4, h5, h6 {
         font-size: clamp(1.45rem, 7vw, 1.8rem);
     }
 
+    .section-title::after {
+        width: 46px;
+    }
+
     .cta-button {
         font-size: 0.95rem;
         padding: 13px 16px;
@@ -1998,10 +2045,16 @@ h1, h2, h3, h4, h5, h6 {
     .scenario-card,
     .why-item,
     .testimonial-item,
+    .business-profile-card,
     .quick-contact-card,
     .info-box,
-    .contact-form {
+    .contact-form,
+    .map-info {
         padding: 18px 16px;
+    }
+
+    .section-header {
+        margin-bottom: 24px;
     }
 
     .map-container {
