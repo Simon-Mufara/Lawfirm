@@ -284,13 +284,14 @@ h1, h2, h3, h4, h5, h6 {
 .nav-quick-actions {
     display: flex;
     gap: 10px;
-    padding-top: 5px;
+    align-items: center;
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
     gap: 35px;
+    align-items: center;
 }
 
 .nav-link {
@@ -300,6 +301,11 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     transition: var(--transition-fast);
     padding: 5px 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 28px;
 }
 
 .nav-link::after {
