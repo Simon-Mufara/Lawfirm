@@ -220,6 +220,7 @@ if (testimonialForm) {
 
         const payload = {
             clientName: normalizeWhitespace(formData.get('clientName')).slice(0, 80),
+            clientEmail: normalizeWhitespace(formData.get('clientEmail')).slice(0, 120).toLowerCase(),
             clientService: normalizeWhitespace(formData.get('clientService')),
             clientRating: Number(formData.get('clientRating')),
             clientFeedback: normalizeWhitespace(formData.get('clientFeedback')).slice(0, 600)
@@ -336,6 +337,11 @@ function validateTestimonial(payload) {
         return false;
     }
 
+    if (!isBusinessEmail(payload.clientEmail)) {
+        showAlert('Please provide a valid business email address.');
+        return false;
+    }
+
     if (!payload.clientService) {
         showAlert('Please select a service area.');
         return false;
@@ -387,6 +393,21 @@ function escapeHtml(value) {
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+}
+
+function isBusinessEmail(email) {
+    if (!isValidEmail(email)) {
+        return false;
+    }
+
+    const domain = email.split('@')[1]?.toLowerCase() || '';
+    const blockedDomains = new Set([
+        'gmail.com', 'googlemail.com', 'yahoo.com', 'yahoo.co.za', 'outlook.com',
+        'hotmail.com', 'live.com', 'msn.com', 'icloud.com', 'me.com', 'mac.com',
+        'aol.com', 'proton.me', 'protonmail.com', 'gmx.com', 'mail.com', 'yandex.com'
+    ]);
+
+    return domain.length > 0 && !blockedDomains.has(domain);
 }
 
 // Show success message
