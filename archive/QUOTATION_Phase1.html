@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Development Quotation - Phase 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        @media print {
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #0f1419;
+        }
+
+        .logo span {
+            color: #d4af37;
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .document-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f1419;
+            margin-bottom: 5px;
+        }
+
+        .document-type {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* QUOTATION INFO */
+        .quote-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .info-section h4 {
+            color: #d4af37;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .info-section p {
+            color: #333;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        /* CONTENT */
+        h2 {
+            color: #0f1419;
+            font-size: 18px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid #d4af37;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #d4af37;
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        li strong {
+            color: #0f1419;
+        }
+
+        /* PRICING TABLE */
+        .pricing-section {
+            margin: 30px 0;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .pricing-table th {
+            background: #0f1419;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .pricing-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .pricing-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .pricing-table .label {
+            color: #0f1419;
+            font-weight: 600;
+        }
+
+        .pricing-table .amount {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* PAYMENT TERMS */
+        .payment-box {
+            background: #1a2332;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .payment-box h4 {
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .payment-box p {
+            color: #ddd;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        /* TIMELINE */
+        .timeline-box {
+            background: #f0f0f0;
+            padding: 20px;
+            border-left: 4px solid #d4af37;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .timeline-box h4 {
+            color: #0f1419;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .timeline-box p {
+            color: #555;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+        }
+
+        .acceptance-box {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .acceptance-box h4 {
+            color: #0f1419;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .acceptance-box p {
+            color: #555;
+            font-size: 13px;
+        }
+
+        .signature-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .signature-line {
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+
+        .signature-section p {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* PRINT BUTTON */
+        .print-button {
+            background: #d4af37;
+            color: #0f1419;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .print-button:hover {
+            background: #e8c547;
+        }
+
+        @media print {
+            .print-button {
+                display: none;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* TABLES IN SCOPE */
+        .scope-feature {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .feature-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 3px solid #d4af37;
+        }
+
+        .feature-box strong {
+            color: #0f1419;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .feature-box ul {
+            margin: 0;
+            padding-left: 15px;
+        }
+
+        .feature-box li {
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        /* EXCLUSIONS TABLE */
+        .exclusions-table {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .exclusions-table tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .exclusions-table td {
+            padding: 15px;
+            font-size: 13px;
+        }
+
+        .exclusions-table td:first-child {
+            font-weight: 600;
+            color: #0f1419;
+            width: 25%;
+        }
+
+        .exclusions-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .cost-estimate {
+            color: #d4af37;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button no-print" onclick="window.print()">🖨️ Print to PDF (Ctrl+P)</button>
+
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="logo">⚖️ RHULANI BALOYI <span>INC</span></div>
+            <div class="header-right">
+                <div class="document-type">Quotation</div>
+                <div class="document-title">Website Development – Phase 1</div>
+            </div>
+        </div>
+
+        <!-- QUOTATION INFO -->
+        <div class="quote-info">
+            <div class="info-section">
+                <h4>Prepared By</h4>
+                <p>Mr A.S. Mufara</p>
+                <p>Software Developer Engineer</p>
+                <p>Cape Town, South Africa</p>
+            </div>
+            <div class="info-section">
+                <h4>Quotation Details</h4>
+                <p><strong>Date:</strong> <span id="today"></span></p>
+                <p><strong>Valid Until:</strong> 30 days from date</p>
+                <p><strong>Client:</strong> Rhulani Baloyi Inc. Attorneys</p>
+            </div>
+        </div>
+
+        <!-- PROJECT OVERVIEW -->
+        <h2>1. PROJECT OVERVIEW</h2>
+        <p>This quotation covers the design and development of a modern, professional law firm website (Phase 1). The goal is to establish a strong online presence that reflects credibility, professionalism, and accessibility for clients.</p>
+
+        <!-- SCOPE OF WORK -->
+        <h2>2. SCOPE OF WORK (PHASE 1)</h2>
+        <p>The following services will be provided:</p>
+
+        <h3>Website Design & Development</h3>
+        <ul>
+            <li><strong>Custom-designed</strong> modern and professional website</li>
+            <li><strong>Mobile-responsive design</strong> optimized for phones, tablets, and desktops</li>
+            <li><strong>Clean and user-friendly interface</strong> with professional aesthetics</li>
+        </ul>
+
+        <h3>Pages Included</h3>
+        <div class="scope-feature">
+            <div class="feature-box">
+                <strong>Core Pages</strong>
+                <ul>
+                    <li>Home Page with hero section</li>
+                    <li>About Page</li>
+                    <li>Services / Practice Areas</li>
+                    <li>Contact Page</li>
+                </ul>
+            </div>
+            <div class="feature-box">
+                <strong>Additional Components</strong>
+                <ul>
+                    <li>Testimonials section</li>
+                    <li>FAQ section (optional)</li>
+                    <li>Footer with links</li>
+                    <li>Privacy Policy page</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>Features Included</h3>
+        <div class="scope-feature">
+            <div class="feature-box">
+                <strong>Communication</strong>
+                <ul>
+                    <li>Contact form (email integration)</li>
+                    <li>WhatsApp contact integration</li>
+                    <li>Google Maps location integration</li>
+                    <li>Direct phone & email links</li>
+                </ul>
+            </div>
+            <div class="feature-box">
+                <strong>Technical</strong>
+                <ul>
+                    <li>Basic SEO setup</li>
+                    <li>Fast-loading & optimized structure</li>
+                    <li>SSL security certificate-ready</li>
+                    <li>Mobile first design approach</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PROJECT COST -->
+        <h2>3. PROJECT COST</h2>
+
+        <h3>Development Fee (Once-Off)</h3>
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="label">Website Design & Development (Phase 1)</td>
+                    <td class="amount">R 3,500</td>
+                </tr>
+                <tr>
+                    <td style="color: #666; font-size: 12px;">Includes: Design, development, setup, configuration, testing & deployment</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="background: #f0f0f0; padding: 15px; border-radius: 4px; margin: 20px 0;">
+            <strong>Total Development Cost: R 3,500 (Once-Off)</strong>
+        </p>
+
+        <!-- EXCLUDED COSTS -->
+        <h2>4. EXCLUDED COSTS (CLIENT RESPONSIBILITY)</h2>
+        <p>The following are required for the website to function but are not included in the development fee:</p>
+
+        <table class="exclusions-table">
+            <tr>
+                <td><strong>Domain Registration</strong></td>
+                <td>
+                    <strong class="cost-estimate">R 150 – R 300 per year</strong><br/>
+                    The domain is the website address (e.g., www.yourfirm.co.za). This must be renewed annually to keep the website active.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Web Hosting</strong></td>
+                <td>
+                    <strong class="cost-estimate">R 70 – R 150 per month</strong><br/>
+                    Hosting is the online server where all website files and data are stored. This ensures the website is accessible 24/7 to users.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>SSL Certificate</strong></td>
+                <td>
+                    <strong class="cost-estimate">Included with most hosts / R 50–100/year</strong><br/>
+                    Secures website data and shows customers the site is trusted.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Maintenance & Support</strong></td>
+                <td>
+                    <strong class="cost-estimate">Optional - R 500–1,500/month</strong><br/>
+                    Future updates, backups, security monitoring, and technical support.
+                </td>
+            </tr>
+        </table>
+
+        <!-- PAYMENT TERMS -->
+        <h2>5. PAYMENT TERMS</h2>
+
+        <div class="payment-box">
+            <h4>Payment Structure</h4>
+            <p>• <strong>50% deposit</strong> required to begin the project</p>
+            <p>• <strong>50%</strong> upon completion before final handover</p>
+            <p style="margin-top: 15px;"><strong>Deposit Amount:</strong> R 1,750.00</p>
+            <p><strong>Final Payment:</strong> R 1,750.00</p>
+        </div>
+
+        <h3>Bank Details</h3>
+        <ul>
+            <li><strong>Account Holder:</strong> Mr A.S. Mufara</li>
+            <li><strong>Bank:</strong> Capitec</li>
+            <li><strong>Account Number:</strong> 1607119739</li>
+        </ul>
+
+        <!-- PROJECT TIMELINE -->
+        <h2>6. PROJECT TIMELINE</h2>
+        <div class="timeline-box">
+            <h4>Estimated Completion: 3 – 7 Working Days</h4>
+            <p>Timeline depends on:</p>
+            <ul style="margin-left: 0; padding-left: 20px;">
+                <li>Content availability (text, images, testimonials)</li>
+                <li>Client feedback cycles</li>
+                <li>Revision requests</li>
+            </ul>
+        </div>
+
+        <!-- FUTURE DEVELOPMENT -->
+        <h2>7. FUTURE DEVELOPMENT (PHASE 2 – OPTIONAL)</h2>
+        <p>Once Phase 1 is completed, the website can be upgraded to include advanced features such as:</p>
+
+        <div class="scope-feature">
+            <div class="feature-box">
+                <strong>Client Management</strong>
+                <ul>
+                    <li>Secure client login portal</li>
+                    <li>Case tracking dashboard</li>
+                    <li>Document upload system</li>
+                    <li>User account management</li>
+                </ul>
+            </div>
+            <div class="feature-box">
+                <strong>Business Features</strong>
+                <ul>
+                    <li>Online payment system for legal fees</li>
+                    <li>Appointment booking system</li>
+                    <li>Attorney operations dashboard</li>
+                    <li>Analytics & reporting</li>
+                </ul>
+            </div>
+        </div>
+
+        <p style="margin-top: 20px; font-size: 13px; color: #666;">
+            These features will transform the website into a full client management system. Phase 2 can be implemented based on your requirements and will require a separate quotation.
+        </p>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="acceptance-box">
+                <h4>8. ACCEPTANCE & NEXT STEPS</h4>
+                <p>Please confirm acceptance of this quotation to proceed with the project. Once confirmed, work will begin immediately upon receipt of the 50% deposit.</p>
+            </div>
+
+            <div class="signature-section">
+                <div>
+                    <p style="margin-bottom: 30px; text-align: left; color: #333;">Prepared by:</p>
+                    <div class="signature-line"></div>
+                    <p>Mr A.S. Mufara<br/>Software Developer Engineer<br/>Cape Town, South Africa</p>
+                </div>
+                <div>
+                    <p style="margin-bottom: 30px; text-align: left; color: #333;">Accepted by:</p>
+                    <div class="signature-line"></div>
+                    <p>Rhulani Baloyi Inc. Attorneys<br/>Date: ________________</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('today').textContent = today.toLocaleDateString('en-ZA', options);
+    </script>
+</body>
+</html>

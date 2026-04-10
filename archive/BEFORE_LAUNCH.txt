@@ -1,0 +1,138 @@
+═══════════════════════════════════════════════════════════════════════════════
+RHULANI BALOYI INC. ATTORNEYS - BEFORE LAUNCHING CHECKLIST
+═══════════════════════════════════════════════════════════════════════════════
+
+⚠️  CRITICAL - UPDATE THESE 3 ITEMS BEFORE GOING LIVE:
+───────────────────────────────────────────────────────
+
+1. PHONE NUMBER
+   Location: 
+   - index.html (line 101): <a href="tel:+27011234567" ...>Call Now: +27 (0) 11 123 4567</a>
+   - index.html (line 24): WhatsApp link
+   - Navbar (line 26-27): href="tel:..." and href="https://wa.me/..."
+   - Contact forms in script.js (line 120) Formspree
+   
+   Update: +27 (0) 11 123 4567 → YOUR ACTUAL NUMBER
+
+2. WHATSAPP NUMBER
+   Location:
+   - index.html (line 401): <a href="https://wa.me/27011234567" ...>
+   - Navbar buttons: "https://wa.me/27011234567"
+   
+   Update: 27011234567 → YOUR ACTUAL WHATSAPP NUMBER (digits only, no spaces/dashes)
+
+3. EMAIL ADDRESS
+   Location:
+   - index.html (line 415): mailto:info@rhulani-baloyi.co.za
+   - Footer (line 491): Contact section
+   - Multiple contact cards
+   
+   Update: info@rhulani-baloyi.co.za → YOUR EMAIL
+
+───────────────────────────────────────────────────────────────────────────────
+
+📋 FORM SETUP
+───────────────────────────────────────────────────────────────────────────────
+1. Create Formspree account: https://formspree.io
+2. Create a new form
+3. Copy the form endpoint URL
+4. Update script.js line 120:
+   FROM:  'https://formspree.io/f/xyzqwert'
+   TO:    'https://formspree.io/f/YOUR_CODE_HERE'
+
+───────────────────────────────────────────────────────────────────────────────
+
+🎯 OPTIONAL IMPROVEMENTS (enhance before launch)
+───────────────────────────────────────────────────────────────────────────────
+1. Replace testimonials with real client quotes
+   - Find client names in testimonial-item divs (html line ~280)
+   
+2. Add firm logo
+   - Replace navbar logo text with image: <img src="logo.png" alt="...">
+   
+3. Update attorney names
+   - Find "About Us" section with team info
+   
+4. Set up Google Maps properly
+   - Current embed uses dummy coordinates
+   - Update to real 127 Fox Street, Johannesburg coordinates
+
+───────────────────────────────────────────────────────────────────────────────
+
+✅ TESTING BEFORE LAUNCH
+───────────────────────────────────────────────────────────────────────────────
+1. Desktop Browser (Chrome, Firefox, Safari)
+   - Navbar: Phone and WhatsApp buttons work
+   - Hero: Animations smooth, "Discover expertise" not overlapping
+   - Services: All 6 cards clickable
+   - Contact form: Submits successfully
+   - Map: Loads and displays location
+
+2. Mobile Phone (iOS and Android)
+   - Hamburger menu: Opens/closes smoothly
+   - All buttons: Easy to tap (44px minimum)
+   - Form: Fields are readable, keyboard doesn't hide content
+   - Phone link: Calls phone app
+   - WhatsApp link: Opens WhatsApp app
+
+3. Performance
+   - Page load: <2 seconds
+   - No console errors
+   - All images load
+   - Animations smooth (60fps)
+
+───────────────────────────────────────────────────────────────────────────────
+
+🚀 DEPLOYMENT OPTIONS (Choose one)
+───────────────────────────────────────────────────────────────────────────────
+
+Option A - NETLIFY (Recommended - 5 minutes)
+1. Go to netlify.com and sign up
+2. Drag-and-drop the LawFirm folder
+3. Site goes live instantly
+4. Free SSL certificate included
+5. Custom domain: $12/year
+
+Option B - GITHUB PAGES (Free - 10 minutes)
+1. Create GitHub account (if needed)
+2. Create repository: "rhulani-baloyi.github.io"
+3. Upload index.html, styles.css, script.js
+4. Site lives at: rhulani-baloyi.github.io
+5. Custom domain: $12/year on registrar
+
+Option C - TRADITIONAL HOSTING (Bluehost, Hostinger)
+1. Upload files via FTP
+2. Point domain to server
+3. SSL certificate: Often included free
+
+Option D - CUSTOM DOMAIN SETUP
+1. Buy domain from registrar (Namecheap, GoDaddy, etc.)
+2. Point nameservers to hosting provider
+3. Upload files
+4. Enable SSL/HTTPS
+
+───────────────────────────────────────────────────────────────────────────────
+
+📧 FIRST CONTACT TEST
+───────────────────────────────────────────────────────────────────────────────
+1. Fill out contact form with test data
+2. Submit and verify:
+   - Success message appears
+   - Email received in inbox
+   - All fields captured correctly
+3. Click phone button → phone app dials
+4. Click WhatsApp → WhatsApp opens with correct number
+5. Map loads and displays Johannesburg location
+
+───────────────────────────────────────────────────────────────────────────────
+
+When everything is done:
+✅ Website is production-ready
+✅ Mobile-optimized
+✅ Fast loading
+✅ Professional animations
+✅ Easy for clients to contact you
+
+Let's make Rhulani Baloyi Inc. Attorneys shine online! 🏛️
+
+═══════════════════════════════════════════════════════════════════════════════
